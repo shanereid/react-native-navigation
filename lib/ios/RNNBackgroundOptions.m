@@ -7,6 +7,12 @@
 		UIColor* backgroundColor = [RCTConvert UIColor:self.color];
 		navigationController.navigationBar.barTintColor = backgroundColor;
 	}
+	
+	if (self.clipToBounds) {
+		navigationController.navigationBar.clipsToBounds = [self.clipToBounds boolValue];
+	} else {
+		navigationController.navigationBar.clipsToBounds = NO;
+	}
 }
 
 @end
