@@ -26,6 +26,11 @@
 	
 	UIViewController* topVC = [self topPresentedVC];
 	topVC.definesPresentationContext = YES;
+
+	RNNRootViewController *rootModalVC = (RNNRootViewController*)viewController;
+	if (rootModalVC) {
+		[rootModalVC.presenter present:rootModalVC.options onViewControllerDidLoad:rootModalVC];
+	}
 	
 	if (hasCustomAnimation) {
 		viewController.transitioningDelegate = (UIViewController<UIViewControllerTransitioningDelegate>*)topVC;
