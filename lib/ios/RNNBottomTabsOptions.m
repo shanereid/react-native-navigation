@@ -5,16 +5,23 @@ extern const NSInteger BLUR_TOPBAR_TAG;
 @implementation RNNBottomTabsOptions
 
 - (void)applyOn:(UIViewController *)viewController {
+	UITabBarController *tabBarController;
+	if ([viewController isKindOfClass:[UITabBarController class]]) {
+		tabBarController = (UITabBarController*)viewController;
+	} else {
+		tabBarController = viewController.tabBarController;
+	}
+	
 	if (self.currentTabIndex) {
-		[viewController.tabBarController setSelectedIndex:[self.currentTabIndex unsignedIntegerValue]];
+		[tabBarController setSelectedIndex:[self.currentTabIndex unsignedIntegerValue]];
 	}
 	
 	if (self.currentTabId) {
-		[(RNNTabBarController*)viewController.tabBarController setSelectedIndexByComponentID:self.currentTabId];
+		[(RNNTabBarController*)tabBarController setSelectedIndexByComponentID:self.currentTabId];
 	}
 	
 	if (self.testID) {
-		viewController.tabBarController.tabBar.accessibilityIdentifier = self.testID;
+		tabBarController.tabBar.accessibilityIdentifier = self.testID;
 	}
 	
 	if (self.drawBehind) {
@@ -28,25 +35,25 @@ extern const NSInteger BLUR_TOPBAR_TAG;
 	}
 	
 	if (self.backgroundColor) {
-		viewController.tabBarController.tabBar.barTintColor = [RCTConvert UIColor:self.backgroundColor];
+		tabBarController.tabBar.barTintColor = [RCTConvert UIColor:self.backgroundColor];
 	} else {
-		viewController.tabBarController.tabBar.barTintColor = nil;
+		tabBarController.tabBar.barTintColor = nil;
 	}
 	
 	if (self.barStyle) {
-		viewController.tabBarController.tabBar.barStyle = [RCTConvert UIBarStyle:self.barStyle];
+		tabBarController.tabBar.barStyle = [RCTConvert UIBarStyle:self.barStyle];
 	} else {
-		viewController.tabBarController.tabBar.barStyle = UIBarStyleDefault;
+		tabBarController.tabBar.barStyle = UIBarStyleDefault;
 	}
 
 	if (self.translucent) {
-		viewController.tabBarController.tabBar.translucent = [self.translucent boolValue];
+		tabBarController.tabBar.translucent = [self.translucent boolValue];
 	} else {
-		viewController.tabBarController.tabBar.translucent = NO;
+		tabBarController.tabBar.translucent = NO;
 	}
 	
 	if (self.hideShadow) {
-		viewController.tabBarController.tabBar.clipsToBounds = [self.hideShadow boolValue];
+		tabBarController.tabBar.clipsToBounds = [self.hideShadow boolValue];
 	}
 
 	[self resetOptions];
