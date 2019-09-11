@@ -68,28 +68,40 @@ public class LayoutFactory {
     }
 
 	public ViewController create(final LayoutNode node) {
+        ViewController retController;
 		switch (node.type) {
 			case Component:
-				return createComponent(node);
+				retController = createComponent(node);
+				break;
             case ExternalComponent:
-                return createExternalComponent(node);
+				retController = createExternalComponent(node);
+				break;
 			case Stack:
-				return createStack(node);
+				retController = createStack(node);
+				break;
 			case BottomTabs:
-				return createBottomTabs(node);
+				retController = createBottomTabs(node);
+				break;
 			case SideMenuRoot:
-				return createSideMenuRoot(node);
+				retController = createSideMenuRoot(node);
+				break;
 			case SideMenuCenter:
-				return createSideMenuContent(node);
+				retController = createSideMenuContent(node);
+				break;
 			case SideMenuLeft:
-				return createSideMenuLeft(node);
+				retController = createSideMenuLeft(node);
+				break;
 			case SideMenuRight:
-				return createSideMenuRight(node);
+				retController = createSideMenuRight(node);
+				break;
             case TopTabs:
-                return createTopTabs(node);
+				retController = createTopTabs(node);
+				break;
 			default:
 				throw new IllegalArgumentException("Invalid node type: " + node.type);
 		}
+		retController.setDefaultOptions(defaultOptions);
+		return retController;
 	}
 
     private ViewController createSideMenuRoot(LayoutNode node) {
