@@ -58,6 +58,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
 
     public Options initialOptions;
     public Options options;
+    private Options defaultOptions = new Options();
 
     private final Activity activity;
     private final String id;
@@ -111,7 +112,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
 
     @CheckResult
     public Options resolveCurrentOptions() {
-        return options;
+        return options.copy().withDefaultOptions(this.defaultOptions);
     }
 
     @CheckResult
@@ -135,7 +136,7 @@ public abstract class ViewController<T extends ViewGroup> implements ViewTreeObs
     }
 
     public void setDefaultOptions(Options defaultOptions) {
-        
+        this.defaultOptions = defaultOptions;
     }
 
     public Activity getActivity() {
